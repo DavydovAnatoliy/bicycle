@@ -40,4 +40,35 @@
         url(../fonts/Lato-Bold.woff) format('woff'),
         url(../fonts/Lato-Bold.woff2) format('woff2');
 }
+body{
+    font-family: 'Lato-Bold';
+    &.lock{
+        overflow: hidden;
+    }
+}
+.wrapper{
+    min-height: 100%;
+    overflow: hidden;
+}
+.container{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+.ibg{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.ibg img{
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      visibility: hidden;
+}
 
+@import '_mainBlock';
