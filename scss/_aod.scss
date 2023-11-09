@@ -1,0 +1,56 @@
+.page {
+
+    &__AOD {
+        background-color: #f7f7f7;
+        padding-top: 126px;
+        padding-bottom: 69px;
+    }
+}
+
+.container {}
+
+.AOD {
+
+    &__body {}
+}
+
+.block-presentation {
+
+    &__logo {}
+
+    &__title {
+
+        &_AOD {
+            letter-spacing: 0.1em;
+            text-transform: none;
+            & span{
+                font-weight: 300;
+                color: #848789;
+            }
+        }
+    }
+    &__subTitle {
+
+        &_itl {
+            font-family: 'Lato-Italic';
+            font-size: 24px;
+            line-height: 141.66%;
+            margin-bottom: 98px;
+        }
+    }
+    &__threeCyrcle{
+        display: flex;
+        & span{
+            width: 11px;
+            height: 11px;
+            border: 1px solid #c8c8c8;
+            border-radius: 50%;
+            &:not(:last-child){
+                margin-right: 9px;
+            }
+            &:first-child{
+                background-color: #a9afb3;
+            }
+        }
+    }
+}

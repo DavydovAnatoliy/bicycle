@@ -1,0 +1,46 @@
+.page {
+
+    &__company {
+
+        &_two {}
+    }
+}
+
+
+.company {
+
+    &__row {
+
+        &_two {
+            flex-direction: row-reverse;
+        }
+    }
+
+    &__column {
+
+        &_s {}
+    }
+
+    &__bigImage {}
+
+    &__label {}
+
+    &__body {}
+
+    &__smallImage {}
+}
+
+.block-presentation {
+
+    &__logo {}
+
+    &__title {}
+
+    &__subTitle {
+
+        &_s {}
+    }
+}
+
+
+
