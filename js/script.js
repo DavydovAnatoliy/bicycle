@@ -1,7 +1,6 @@
 let ibgs = document.querySelectorAll('.ibg');
 for (let ibg of ibgs) {
     let img = ibg.querySelector('img');
-    console.log(img);
     if (img) {
          let src=img.getAttribute('src');
           ibg.style.backgroundImage = `url(${src})`;
@@ -32,3 +31,130 @@ function pow() {
 }
 window.addEventListener('scroll', pow);
 pow();
+//================================================================================================
+//slider
+let page__AOD=document.querySelector('.page__AOD');
+let AOD__wrapp = document.querySelector('.AOD__wrapp');
+let AOD__threeBlockPresentation = document.querySelector('.AOD__threeBlockPresentation');
+let leftStart = 0;
+let indLeftStart=0;
+AOD__threeBlockPresentation.style.left = leftStart + 'px';
+let presentationBlocks = AOD__threeBlockPresentation.querySelectorAll('.block-presentation');
+let spans = document.querySelectorAll('.AOD__threeCyrcle>span');
+let indSpan = 0;
+for (let block of presentationBlocks) {
+    let spanColLeft = 0 - indSpan * block.offsetWidth;
+    let span = spans[indSpan];
+    span.classList.add(`left_${spanColLeft}`);
+    span.setAttribute('data-left', `${spanColLeft}`)
+    indSpan++;
+}
+
+let presentationBlocksLength = presentationBlocks.length-1;
+
+    let presentationBlock = AOD__threeBlockPresentation.querySelector('.block-presentation');
+    let widthOneBlockPresentation = presentationBlock.offsetWidth;
+let widthTreeBlockPresentation = -(presentationBlocksLength * widthOneBlockPresentation);
+    
+window.addEventListener('resize', function (e) {
+    AOD__threeBlockPresentation = document.querySelector('.AOD__threeBlockPresentation');
+    presentationBlocks = AOD__threeBlockPresentation.querySelectorAll('.block-presentation');
+    spans = document.querySelectorAll('.AOD__threeCyrcle>span');
+    indSpan = 0;
+for (let block of presentationBlocks) {
+    let spanColLeft = 0 - indSpan * block.offsetWidth;
+    let span = spans[indSpan];
+    span.classList.add(`left_${spanColLeft}`);
+    span.setAttribute('data-left', `${spanColLeft}`)
+    indSpan++;
+    }
+    presentationBlock = AOD__threeBlockPresentation.querySelector('.block-presentation');
+    widthOneBlockPresentation = presentationBlock.offsetWidth;
+    widthTreeBlockPresentation = -(presentationBlocksLength * widthOneBlockPresentation);
+    leftStart = 0-(widthOneBlockPresentation * indLeftStart);
+    AOD__threeBlockPresentation.style.left = leftStart + 'px';
+})
+    
+AOD__wrapp.addEventListener('click', function (e) {
+ 
+
+    let elem = e.target;
+    if (elem.matches('.AOD__arrow')) {
+        let atr = elem.dataset.str;
+        if (atr === 'l') {
+            if (leftStart > widthTreeBlockPresentation) {
+                leftStart = leftStart - widthOneBlockPresentation;
+                indLeftStart = indLeftStart + 1;
+            AOD__threeBlockPresentation.style.left = leftStart + 'px';
+            } else {
+                AOD__threeBlockPresentation.style.left = widthTreeBlockPresentation + 'px';
+            }
+            
+        } else {
+            if (leftStart < 0) {
+                leftStart = leftStart + widthOneBlockPresentation;
+                indLeftStart = indLeftStart - 1;
+                AOD__threeBlockPresentation.style.left = leftStart + 'px';
+            } else {
+                AOD__threeBlockPresentation.style.left = 0 + 'px';
+            }
+        }
+
+ }
+    
+    if (elem.matches('.AOD__threeCyrcle>span')) {
+        let left = elem.getAttribute('data-left');
+        leftStart = Number(left);
+        indLeftStart = Math.abs(leftStart / widthOneBlockPresentation);
+        AOD__threeBlockPresentation.style.left = left + 'px';
+    }
+    let spanAckwOut = document.querySelector('.AOD__threeCyrcle>span.ackw');
+    let spanAckwUp = document.querySelector(`.AOD__threeCyrcle>span.left_${leftStart}`);
+    if (spanAckwOut === spanAckwUp) {
+        return;
+    } else {
+        spanAckwOut.classList.remove('ackw');
+        spanAckwUp.classList.add('ackw');
+    }
+
+})
+
+document.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+})
+
+let coordX = 0;
+
+page__AOD.addEventListener('mousedown', function (e) {
+    let elem = e.target;
+    if (elem.matches('.AOD__arrow')) return;
+    if (elem.matches('.AOD__threeCyrcle>span')) return;
+    coordX = e.clientX;
+    e.preventDefault();
+})
+
+page__AOD.addEventListener('mouseup', function (e) {
+    let elem = e.target;
+    if (elem.matches('.AOD__arrow')) return;
+    if (elem.matches('.AOD__threeCyrcle>span')) return;
+    let coordXup = e.clientX;
+    if (coordXup === coordX) return;
+    if (coordXup < coordX) {
+         if (leftStart > widthTreeBlockPresentation) {
+                leftStart = leftStart - widthOneBlockPresentation;
+                indLeftStart = indLeftStart + 1;
+            AOD__threeBlockPresentation.style.left = leftStart + 'px';
+            } else {
+                AOD__threeBlockPresentation.style.left = widthTreeBlockPresentation + 'px';
+            }
+    } else {
+        if (leftStart < 0) {
+                leftStart = leftStart + widthOneBlockPresentation;
+                indLeftStart = indLeftStart - 1;
+                AOD__threeBlockPresentation.style.left = leftStart + 'px';
+            } else {
+                AOD__threeBlockPresentation.style.left = 0 + 'px';
+            }
+    }
+ 
+})
