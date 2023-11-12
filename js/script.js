@@ -1,3 +1,12 @@
+document.addEventListener('click', function (e) {
+    let elem = e.target;
+    if (elem.closest('a')||elem.closest('button')) {
+        e.preventDefault();
+    }
+    
+})
+//=================================================================================
+
 let ibgs = document.querySelectorAll('.ibg');
 for (let ibg of ibgs) {
     let img = ibg.querySelector('img');
@@ -73,11 +82,38 @@ for (let block of presentationBlocks) {
     widthTreeBlockPresentation = -(presentationBlocksLength * widthOneBlockPresentation);
     leftStart = 0-(widthOneBlockPresentation * indLeftStart);
     AOD__threeBlockPresentation.style.left = leftStart + 'px';
+
 })
-    
+window.addEventListener('resize', poww)
+function poww(e) {
+    let windowWidth = window.innerWidth;
+    let columnDob = document.querySelector('.gallery__column_dob');
+    if (windowWidth < 541) {
+        if (columnDob) return;
+        let galleryColumn__imageHeight = document.querySelectorAll('.gallery-column__imageHeight');
+        let gallery__row = document.querySelector('.gallery__row');
+         columnDob = document.createElement('div');
+        gallery__row.firstElementChild.after(columnDob);
+        columnDob.classList.add('gallery__column');
+        columnDob.classList.add('gallery__column_dob');
+        for (let imageHeight of galleryColumn__imageHeight) {
+            columnDob.append(imageHeight);
+        }       
+    } else {
+        if (!columnDob) return;
+        let galleryColumn__imageHeight = columnDob.querySelectorAll('.gallery-column__imageHeight');
+        let galleryColumn__row = document.querySelectorAll('.gallery-column__row');
+        let i = 0;
+        for (let imageHeight of galleryColumn__imageHeight) {
+            galleryColumn__row[i].append(imageHeight);
+            i++;
+        }
+        columnDob.remove();
+    }
+}
+poww();
 AOD__wrapp.addEventListener('click', function (e) {
  
-
     let elem = e.target;
     if (elem.matches('.AOD__arrow')) {
         let atr = elem.dataset.str;
@@ -119,9 +155,7 @@ AOD__wrapp.addEventListener('click', function (e) {
 
 })
 
-document.addEventListener('mousedown', function (e) {
-    e.preventDefault();
-})
+
 
 let coordX = 0;
 
@@ -157,4 +191,14 @@ page__AOD.addEventListener('mouseup', function (e) {
             }
     }
  
+})
+//======================================================================================
+let inputEmail = document.querySelector('.saddle__input');
+inputEmail.addEventListener('focus', function (e) {
+    this.value = '';
+    this.classList.add('inpActive');
+})
+inputEmail.addEventListener('blur', function (e) {
+    this.value = '';
+    this.classList.remove('inpActive');
 })

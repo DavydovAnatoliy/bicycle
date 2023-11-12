@@ -1,0 +1,39 @@
+.discover {
+background-color: #282f35;
+padding: 75px 0;
+text-align: center;
+    &__button {
+        display: inline-block;
+        height: 50px;
+        font-size: 14px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: #ffffff;
+        background-color: #282f35;
+        padding: 0 55px;
+        border: 1px solid rgba(255, 255, 255, 0.49);
+    }
+}
+@media (max-width:768px){
+.discover {
+    padding: 55px 0;
+
+}
+}
+@media (max-width:540px) {
+    .discover {
+        padding: 35px 0;
+
+    }
+}
+@media (max-width:375px) {
+    .discover {
+        padding: 20px 0;
+           &__button {
+               height: 50px;
+               font-size: 12px;
+               padding: 0 35px;
+           }
+    }
+}

@@ -1,0 +1,103 @@
+.footer {
+background-color: #f7f7f7;
+padding-top: 90px;
+padding-bottom: 90px;
+    &__row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__column {
+        // flex: 0 1 33.333%;
+        
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        & span{
+            font-family: 'Lato-Italic';
+            color: #848789;
+            font-size: 13.9px;
+            &:first-child{
+                font-family: 'Lato-Bold';
+                font-size: 16px;
+                line-height: 106%;
+            }
+        }
+    }
+
+    &__social {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__logo-social {
+        &:not(:last-child) {
+            margin-right: 15px;
+        }
+    }
+
+    &__yebo {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    &__text-yebo {
+        font-family: 'Lato-Italic';
+        font-size: 13.9px;
+        line-height: 122%;
+        color: #848789;
+        margin-right: 9px;
+    }
+
+    &__logo-yebo {}
+}
+@media (max-width:768px){
+    .footer {
+        padding-top: 50px;
+        padding-bottom: 50px;
+        &__row {
+            flex-wrap: wrap;
+        }
+            &__column {
+                flex: 1 1 50%;
+                &:first-child{
+                    flex: 1 0 100%;
+                }
+            }
+            &__social {
+                display: flex;
+                justify-content: flex-start;
+            }
+             &__text {
+                 display: block;
+                 text-align: center;
+                 margin-bottom: 20px;
+                }
+    }
+}
+@media (max-width:360px) {
+    .footer {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        &__row {
+            flex-wrap: wrap;
+        }
+
+        &__column {
+            flex: 1 0 100%;
+        }
+        &__social {
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        &__yebo {
+            justify-content: center;
+        }
+
+    }
+}

@@ -78,4 +78,26 @@
     }
 }
 
+@media (max-width: 820px){
+    .gallery {
 
+        &__row {
+            // display: flex;
+            flex-wrap: wrap;
+        }
+
+        &__column {
+            flex: 0 1 100%;
+            &_dob{
+                display: flex;
+            }
+        }
+    }
+
+    .gallery-column {
+          &__imageHeight {
+              flex: 0 1 50%;
+            padding-bottom: 50%;
+          }
+    }
+}
