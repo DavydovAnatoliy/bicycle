@@ -2,8 +2,23 @@ document.addEventListener('click', function (e) {
     let elem = e.target;
     if (elem.closest('a')||elem.closest('button')) {
         e.preventDefault();
-    }
+    }  
+})
+document.addEventListener('mousedown', function (e) {
+    let elem = e.target;
+    if (elem.closest('.page__AOD')) {
+        e.preventDefault();
+    }  
+})
+document.addEventListener('mouseup', function () {
     
+    if (flagMouseOver) {
+        console.log('сработ mouseup на document');
+       
+        mouseUpThreeBlock();
+         
+    }
+     
 })
 //=================================================================================
 
@@ -112,7 +127,7 @@ function poww(e) {
     }
 }
 poww();
-AOD__wrapp.addEventListener('click', function (e) {
+page__AOD.addEventListener('click', function (e) {
  
     let elem = e.target;
     if (elem.matches('.AOD__arrow')) {
@@ -158,20 +173,60 @@ AOD__wrapp.addEventListener('click', function (e) {
 
 
 let coordX = 0;
-
+let flagMouseOver = false;
+let coordMoveX = 0;
 page__AOD.addEventListener('mousedown', function (e) {
+    
+    console.log(flagMouseOver, 'down', e.target);
     let elem = e.target;
     if (elem.matches('.AOD__arrow')) return;
     if (elem.matches('.AOD__threeCyrcle>span')) return;
+    flagMouseOver = true;
     coordX = e.clientX;
+    coordMoveX=e.clientX;
     e.preventDefault();
 })
 
-page__AOD.addEventListener('mouseup', function (e) {
-    let elem = e.target;
-    if (elem.matches('.AOD__arrow')) return;
-    if (elem.matches('.AOD__threeCyrcle>span')) return;
-    let coordXup = e.clientX;
+let AOD__overHid = document.querySelector('.AOD__overHid');
+let AODoverHidCoords = AOD__overHid.getBoundingClientRect();
+
+let flagInner = true;
+function powww() {
+    flagInner = false;
+    setTimeout(function () {
+        flagInner = true;
+    },200);
+}
+    
+let leftNew=0;
+AOD__overHid.addEventListener('mousemove', function (e) {
+    if (flagInner) {
+        powww();
+        if (flagMouseOver) {
+            if (coordMoveX > e.clientX) {
+                console.log(coordMoveX, e.clientX, 'влево');
+                //  AOD__threeBlockPresentation.style.left = (leftStart + (e.clientX - AODoverHidCoords.x)) + 'px';
+                // // leftNew = leftNew - (leftNew - (e.clientX - AODoverHidCoords.x));
+                // // AOD__threeBlockPresentation.style.left = leftNew + 'px';
+                AOD__threeBlockPresentation.style.left = (leftStart - (AODoverHidCoords.width - (e.clientX - AODoverHidCoords.x))) + 'px';
+                coordMoveX = e.clientX;
+                console.log(AOD__threeBlockPresentation.style.left);
+            } else if (coordMoveX < e.clientX) {
+                // leftNew =leftStart + (e.clientX - AODoverHidCoords.x);
+                // AOD__threeBlockPresentation.style.left = leftNew + 'px';
+                AOD__threeBlockPresentation.style.left = (leftStart + (e.clientX - AODoverHidCoords.x)) + 'px';     
+                coordMoveX = e.clientX;            
+            }       
+    }
+    }       
+})
+function mouseUpThreeBlock () {
+    if (!flagMouseOver) return;
+    flagMouseOver = false;
+    coordMoveX = 0;
+     console.log(flagMouseOver, 'up', event.target);
+    let elem = event.target;
+    let coordXup = event.clientX;
     if (coordXup === coordX) return;
     if (coordXup < coordX) {
          if (leftStart > widthTreeBlockPresentation) {
@@ -191,14 +246,74 @@ page__AOD.addEventListener('mouseup', function (e) {
             }
     }
  
-})
+}
+
+page__AOD.addEventListener('mouseup', mouseUpThreeBlock)
 //======================================================================================
+let label = null;
 let inputEmail = document.querySelector('.saddle__input');
 inputEmail.addEventListener('focus', function (e) {
-    this.value = '';
+    // this.value = '';
     this.classList.add('inpActive');
+    if (this.classList.contains('err')) {
+      this.classList.remove('err');  
+    }
+    if (label) {
+        label.remove();
+        label = null;
+    }
+    console.log(21212);
 })
 inputEmail.addEventListener('blur', function (e) {
-    this.value = '';
+    
     this.classList.remove('inpActive');
+
+})
+//===================================================================================
+let saddle__button = document.querySelector('button.saddle__button');
+let saddle__inputWrap=document.querySelector('.saddle__inputWrap');
+saddle__button.addEventListener('click', function (e) {
+    let valueInput = inputEmail.value;
+    let index = valueInput.indexOf('@', 0);
+    if (!valueInput || index === -1||index === 0 || valueInput.length === index + 1) {
+        inputEmail.classList.add('err');
+        let inputCoords = inputEmail.getBoundingClientRect();
+        if (label) {
+            label.remove();
+            label = null;
+        }
+        label = document.createElement('div');
+        label.classList.add('labelPosition');
+        if (!valueInput) {
+            label.textContent = 'Вы не ввели электронный адрес';
+        } else if (index === -1) {
+            label.textContent = `Адрес электронной почты должен содержать символ "@". В адресе "${inputEmail.value}" отсутствует символ "@".`;
+        } else if (index === 0) {
+            label.textContent = `Введите часть адреса до символа "@". Адрес "${inputEmail.value}" неполный. `;
+        }else if (valueInput.length === index + 1) {
+            label.textContent = `Введите часть адреса после символа "@". Адрес "${inputEmail.value}" неполный.`;
+        }
+
+        saddle__inputWrap.append(label);
+
+        let x;
+        x = (inputEmail.offsetWidth - label.offsetWidth) / 2;
+        if (Math.abs(x) > inputCoords.x) {
+            x = 2;
+        }
+        let y;
+        y = inputEmail.offsetHeight + 5;
+        if (inputCoords.bottom +label.offsetHeight + 5  > document.documentElement.clientHeight) {
+            y = -(label.offsetHeight + 5);
+            if (inputCoords.y - label.offsetHeight - 5 < 0) {
+                let exitBorder = inputCoords.y - label.offsetHeight - 5;
+                y = -(label.offsetHeight + 5 + exitBorder);
+            }
+            
+        }
+        label.style.left = x + 'px';
+        label.style.top = y + 'px';
+    } else {
+        inputEmail.value = '';
+    }
 })

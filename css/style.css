@@ -920,6 +920,14 @@ body.lock {
   padding-bottom: 100px;
 }
 
+.labelPosition {
+  position: absolute;
+  border: 1px solid #000;
+  padding: 10px 15px;
+  background-color: #64c29e;
+  border-radius: 8px;
+}
+
 .saddle__body {
   text-align: center;
 }
@@ -937,6 +945,11 @@ body.lock {
   margin-bottom: 32px;
 }
 
+.saddle__inputWrap {
+  position: relative;
+  display: inline-block;
+}
+
 .saddle__input {
   font-family: 'Lato-Italic';
   font-size: 20px;
@@ -950,6 +963,10 @@ body.lock {
 
 .saddle__input.inpActive {
   border: 1.5px solid #000;
+}
+
+.saddle__input.err {
+  border: 1.5px solid red;
 }
 
 .saddle__button {
